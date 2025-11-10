@@ -2273,7 +2273,8 @@ from typing import Dict, List
 # ---------- CONFIG ----------
 st.set_page_config(page_title="MoM RTM KPI Viewer", layout="wide")
 
-DATA_FOLDER = Path(__file__).parent / "Data"
+#DATA_FOLDER = Path(__file__).parent / "Data"
+DATA_FOLDER = Path(__file__).parent
 #DATA_FOLDER = Path(r"C:\Users\HP\Desktop\ExcelProject\Data") # ✅ change if needed
 ALLOWED_EXT = (".xlsx", ".xls")
 
@@ -2589,3 +2590,4 @@ for p in files:
 st.sidebar.markdown("---")
 st.sidebar.write("Streamlit app configured for:")
 st.sidebar.code(str(DATA_FOLDER))
+
