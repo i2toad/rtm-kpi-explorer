@@ -2635,13 +2635,14 @@ if download_df:
     )
 
 # ---------- SIDEBAR INFO ----------
-st.sidebar.markdown("---")
+#st.sidebar.markdown("---")
 #st.sidebar.header("Files found")
 #for p in files:
 #    st.sidebar.write(f"- {p.name} ({p.stat().st_size // 1024} KB)")
-st.sidebar.markdown("---")
-st.sidebar.write("Streamlit app configured for:")
-st.sidebar.code(str(DATA_FOLDER))
+#st.sidebar.markdown("---")
+#st.sidebar.write("Streamlit app configured for:")
+#st.sidebar.code(str(DATA_FOLDER))
+
 
 
 
