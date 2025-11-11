@@ -2410,11 +2410,11 @@ def format_whole_numbers(df: pd.DataFrame, whole_number_kpis: List[str], kpi_col
 
 # ---------- UI ----------
 st.title("📊 MoM RTM KPI — Explorer")
-st.markdown("Browse Excel KPI files, preview sheets, build quick charts, and export data.")
+#st.markdown("Browse Excel KPI files, preview sheets, build quick charts, and export data.")
 
 # ---------- FILE DISCOVERY ----------
-st.sidebar.header("📁 Data source")
-st.sidebar.write("Reading Excel files from:")
+#st.sidebar.header("📁 Data source")
+#st.sidebar.write("Reading Excel files from:")
 st.sidebar.code(str(DATA_FOLDER))
 
 files = list_excel_files(DATA_FOLDER)
@@ -2442,7 +2442,7 @@ df_original_copy = safe_numeric_cols(df_original_copy)
 df_original_copy.columns = df_original_copy.columns.astype(str).str.strip()
 
 df = df_original_copy.copy()
-st.sidebar.markdown(f"Rows: **{len(df):,}** | Columns: **{len(df.columns):,}**")
+#st.sidebar.markdown(f"Rows: **{len(df):,}** | Columns: **{len(df.columns):,}**")
 
 # ---------- DETECT MONTH COLUMNS ----------
 month_pattern = re.compile(r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|\b20\d{2}[-_/]?\d{0,2})", re.IGNORECASE)
@@ -2463,7 +2463,7 @@ rtm_kpi_col = {c.lower(): c for c in filter_columns}.get("rtm kpis")
 # ---------- HEADER FILTERS ----------
 filter_values = {}
 if filter_columns:
-    st.markdown("### 🔎 Filters (Before Month Columns)")
+    #st.markdown("### 🔎 Filters (Before Month Columns)")
 
     normalized_cols = {c.lower(): c for c in filter_columns}
     region_col = normalized_cols.get("region")
@@ -2506,7 +2506,7 @@ if filter_columns:
             if val != "All":
                 df = df[df[col].astype(str) == val]
 
-st.markdown(f"✅ Showing **{len(df):,}** filtered rows.")
+#st.markdown(f"✅ Showing **{len(df):,}** filtered rows.")
 
 # ✅ Apply percentage formatting
 df_display = format_percentage_columns(df.copy(), month_columns, "rtm kpis")
@@ -2548,7 +2548,8 @@ df_display = format_whole_numbers(
 display_name = prettify_filename(selected_file_name, selected_sheet)
 st.subheader(display_name)
 
-view_mode = st.radio("View mode", ["Table", "Summary"], horizontal=True)
+#view_mode = st.radio("View mode", ["Table", "Summary"], horizontal=True)
+view_mode = st.radio("View mode", ["Table", "Summary"], horizontal=True, label_visibility="collapsed")
 if view_mode == "Table":
     st.dataframe(df_display, use_container_width=True)
 else:
@@ -2584,10 +2585,11 @@ if download_df:
 
 # ---------- SIDEBAR INFO ----------
 st.sidebar.markdown("---")
-st.sidebar.header("Files found")
+#st.sidebar.header("Files found")
 for p in files:
     st.sidebar.write(f"- {p.name} ({p.stat().st_size // 1024} KB)")
 st.sidebar.markdown("---")
 st.sidebar.write("Streamlit app configured for:")
 st.sidebar.code(str(DATA_FOLDER))
+
 
