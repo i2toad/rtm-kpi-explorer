@@ -2270,6 +2270,57 @@ import re
 import plotly.express as px
 from typing import Dict, List
 
+# =========================================================================
+# 🔐 AUTHENTICATION FUNCTION (Add this to the very top of your script)
+# =========================================================================
+
+def check_password():
+    """Returns True if the user has entered the correct password."""
+
+    # 1. Check if the password is correct
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if st.session_state["password"] == st.secrets["app_password"]:
+            st.session_state["password_correct"] = True
+            # Don't store the password after verification
+            del st.session_state["password"] 
+        else:
+            st.session_state["password_correct"] = False
+
+    # 2. Check current state
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # 3. Show password input if not correct
+    st.title("🔐 RTM KPI Login")
+    
+    st.text_input(
+        "Enter Access Code", 
+        type="password", 
+        on_change=password_entered, 
+        key="password",
+        # Use collapsed visibility to hide the input label, keeping it clean
+        label_visibility="collapsed" 
+    )
+    
+    # Display error message if password was tried and failed
+    if "password_correct" in st.session_state:
+        st.error("Incorrect password. Please try again.")
+    
+    return False
+
+# =========================================================================
+# 🛑 CALL THE GATE FUNCTION (Add this right after the function definition)
+# =========================================================================
+
+if not check_password():
+    st.stop() 
+
+# =========================================================================
+# The rest of your app code (st.set_page_config, st.title, etc.) 
+# starts here and will only run if check_password() returns True.
+# =========================================================================
+
 # ---------- CONFIG ----------
 st.set_page_config(page_title="MoM RTM KPI Viewer", layout="wide")
 
@@ -2591,5 +2642,6 @@ for p in files:
 st.sidebar.markdown("---")
 st.sidebar.write("Streamlit app configured for:")
 st.sidebar.code(str(DATA_FOLDER))
+
 
 
